@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
         <entry key="..\:/Users/TUAN/mobile_final/SecondHand/app/src/main/res/layout/activity_main.xml" value="0.2" />
+=======
+        <entry key="..\:/2nd_year/Trash/SecondHand/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/2nd_year/Trash/SecondHand/app/src/main/res/layout/activity_detail.xml" value="0.33" />
+        <entry key="..\:/2nd_year/Trash/SecondHand/app/src/main/res/layout/product_item.xml" value="0.33" />
+>>>>>>> b6af1e89a0478c4c017a8b05f9c84fc700668c2e
       </map>
     </option>
   </component>

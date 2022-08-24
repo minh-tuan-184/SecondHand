@@ -40,7 +40,8 @@ public class DetailActivity extends AppCompatActivity {
             textView.setText(prod.getCategoryProduct());
 
             imageView = (ImageView) findViewById(R.id.image_detail);
-
+            imageView.setImageResource(prod.getImageUrl());
+            
             textView = (TextView)findViewById(R.id.remain_detail);
             textView.setText(prod.getRemainProduct());
 

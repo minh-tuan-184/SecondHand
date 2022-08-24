@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,10 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        //ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setTitle("Back");
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         Product prod = (Product)getIntent().getParcelableExtra("product");
         if (prod != null) {
@@ -44,12 +48,10 @@ public class DetailActivity extends AppCompatActivity {
             imageView.setImageResource(prod.getImageUrl());
 
             textView = (TextView)findViewById(R.id.remain_detail);
-            textView.setText(prod.getRemainProduct());
+            textView.setText(String.valueOf(prod.getRemainProduct()));
 
             textView = (TextView)findViewById(R.id.phone_detail);
             textView.setText(prod.getPhoneNumber());
         }
-
-        //actionBar.setTitle("Back");
     }
 }

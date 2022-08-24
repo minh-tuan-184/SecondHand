@@ -20,7 +20,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        ActionBar actionBar = getSupportActionBar();
+        //ActionBar actionBar = getSupportActionBar();
 
         Product prod = (Product)getIntent().getParcelableExtra("product");
         if (prod != null) {
@@ -47,6 +47,6 @@ public class DetailActivity extends AppCompatActivity {
             textView = (TextView)findViewById(R.id.phone_detail);
             textView.setText(prod.getPhoneNumber());
         }
-        actionBar.setTitle("Back");
+        //actionBar.setTitle("Back");
     }
 }

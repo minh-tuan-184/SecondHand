@@ -1,6 +1,12 @@
 package com.example.secondhand.otherActivities;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +22,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView textView;
     Integer tmp;
     ImageView imageView;
-
+    ImageView call;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +58,27 @@ public class DetailActivity extends AppCompatActivity {
 
             textView = (TextView)findViewById(R.id.phone_detail);
             textView.setText(prod.getPhoneNumber());
+        }
+
+        call = findViewById(R.id.phonecall);
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialPhoneNumber(prod.getPhoneNumber());
+            }
+        });
+    }
+
+    public void dialPhoneNumber(String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + phoneNumber));
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this,
+                    "Cannot find any app to handle this action!!",
+                    Toast.LENGTH_SHORT
+            ).show();
         }
     }
 }

@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="253dp"
         android:layout_height="69dp"
-        android:text="Welcome to\nEveryFood"
+        android:text="ShopWelcome to\nour Shop"
         android:textColor="#272677"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"

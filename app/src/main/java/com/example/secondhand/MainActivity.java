@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         productList.add(new Product("Dao nĩa bàn tiệc", "58.750đ", "4.0", "Dao nĩa theo phong cách phương tây", "Item", R.drawable.dao_nia, 208, "0975266348"));
         productList.add(new Product("Tivi màn hình phẳng full HD 4k", "30.640.300đ", "4.5", "Thiết kế sang trọng, đẹp mắt, chất lượng hình ảnh cực tốt, có kết nối mạng có thể xem YouTube", "Item", R.drawable.tivi, 3, "0797751743"));
         productList.add(new Product("Guitar Acoustic", "1.500.000đ", "4.7", "Đàn đã mua nhưng chỉ sử dụng được vài lần, nay em muốn pass lại ạ!", "Musical Instruments", R.drawable.guitaracoustic, 3, "01214531748"));
+        productList.add(new Product("Piano", "36.170.300đ", "3.8", "Đàn piano du dương êm dịu", "Musical Instruments", R.drawable.piano, 1, "0903127754"));
 
         List<Category> categoryList = new ArrayList<>();
 

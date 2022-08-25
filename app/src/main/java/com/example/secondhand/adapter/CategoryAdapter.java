@@ -7,26 +7,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.secondhand.R;
+import com.example.secondhand.otherActivities.CategoryActivity;
+import com.example.secondhand.otherActivities.DetailActivity;
 import com.example.secondhand.product.Category;
 import com.example.secondhand.product.Product;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryAdapterViewHolder> {
     Context context;
     List<Category> categoryList;
-    List<Product> productList;
+    ArrayList<Product> productList;
+
     public CategoryAdapter(Context context, List<Category> categoryList, List<Product> productList) {
         this.context = context;
         this.categoryList = categoryList;
-        this.productList = productList;
+        this.productList = new ArrayList<Product>(productList);
     }
 
 
@@ -43,13 +50,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         holder.imageView.setImageResource(categoryList.get(position).getImageUrl());
         holder.itemView.setOnClickListener(view -> {
             String tmp = categoryList.get(position).getNameCategory();
+
             for(int i = 0; i < productList.size(); ++i) {
-                if (productList.get(i).getCategoryProduct() == tmp) {
+                if (productList.get(i).getCategoryProduct() != tmp && i >= 0) {
                     productList.remove(i);
+                    --i;
                 }
             }
+            Intent i = new Intent(context, CategoryActivity.class);
+            i.putParcelableArrayListExtra("category", productList);
+            i.putExtra("nameCategory", tmp);
+            context.startActivity(i);
         });
-}
+    }
 
     @Override
     public int getItemCount() {

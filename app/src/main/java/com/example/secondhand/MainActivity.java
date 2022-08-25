@@ -30,13 +30,15 @@ public class MainActivity extends AppCompatActivity {
 
         List<Product> productList = new ArrayList<>();
 
-        productList.add(new Product("Nha mat pho gan cay xang 99m2", "4 ty 990 trieu", "4.5", "Nha dep ma co ma am can thanh ly gap", "Real Estate", R.drawable.nha, 1, "0931488542"));
-        productList.add(new Product("Xe moto yamaha", "49 trieu", "3.8", "Xe chay sieu em dung de chay duong truong", "Transport", R.drawable.moto_yamaha, 19, "0963566882"));
-        productList.add(new Product("Sua bot Ensure Gold", "149 nghin", "4.2", "Nhieu duong chat, danh cho be 3-6 tuoi", "Food", R.drawable.sua_bot, 25, "0964255014"));
-        productList.add(new Product("Ao thun chat choi nguoi doi", "249 nghin", "3.9", "Ao thun cuc mat cho ngay dai nang dong", "Clothes", R.drawable.ao_thun_1, 347, "0908863636"));
-        productList.add(new Product("Ao thun tay lo", "150 nghin", "4.1", "Ao thun de di choi ngay he", "Clothes", R.drawable.ao_thun_2,134, "0956335681"));
-        productList.add(new Product("Ao thun nhieu mau sac", "195 nghin", "3.7", "Ao thun mat me - Tim lai tuoi tre", "Clothes", R.drawable.ao_thun_3, 705, "0909631035"));
-        productList.add(new Product("Dao nia ban tiec", "135 nghin", "4.0", "Dao nia theo phong cach an tiec phuong Tay", "Item", R.drawable.dao_nia, 208, "0975266348"));
+        productList.add(new Product("Nhà mặt phố cây xăng 99m^2", "4.990.000.000đ", "4.5", "Nhà đẹp mã, có ma ám cần thanh lý cho những người can đảm", "Real Estate", R.drawable.nha, 1, "0931488542"));
+        productList.add(new Product("Xe moto Yamaha", "32.560.000đ", "3.8", "Xe chạy đường trường siêu êm", "Transport", R.drawable.moto_yamaha, 19, "0963566882"));
+        productList.add(new Product("Sữa bột Ensure Gold", "200.000đ", "4.2", "Nhiều dưỡng chất thiết yếu dành cho trẻ sơ sinh", "Food", R.drawable.sua_bot, 25, "0964255014"));
+        productList.add(new Product("Áo thun chất chơi người dơi", "352.200đ", "3.9", "Áo thun mát mẻ cho những ngày hè năng động", "Clothes", R.drawable.ao_thun_1, 347, "0908863636"));
+        productList.add(new Product("Áo thun tay lỗ", "150.000đ", "4.1", "Áo thun để đi chơi ngày hè", "Clothes", R.drawable.ao_thun_2,134, "0956335681"));
+        productList.add(new Product("Áo thun nhiều màu sắc", "195.000đ", "3.7", "Áo thun mát mẻ - tìm lại tuổi thanh xuân", "Clothes", R.drawable.ao_thun_3, 705, "0909631035"));
+        productList.add(new Product("Dao nĩa bàn tiệc", "58.750đ", "4.0", "Dao nĩa theo phong cách phương tây", "Item", R.drawable.dao_nia, 208, "0975266348"));
+        productList.add(new Product("Tivi màn hình phẳng full HD 4k", "30.640.300đ", "4.5", "Thiết kế sang trọng, đẹp mắt, chất lượng hình ảnh cực tốt, có kết nối mạng có thể xem YouTube", "Item", R.drawable.tivi, 3, "0797751743"));
+        productList.add(new Product("Guitar Acoustic", "1.500.000đ", "4.7", "Đàn đã mua nhưng chỉ sử dụng được vài lần, nay em muốn pass lại ạ!", "Musical Instruments", R.drawable.guitaracoustic, 3, "01214531748"));
 
         List<Category> categoryList = new ArrayList<>();
 

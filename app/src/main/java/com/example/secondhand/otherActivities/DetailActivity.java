@@ -2,15 +2,12 @@ package com.example.secondhand.otherActivities;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +19,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView textView;
     Integer tmp;
     ImageView imageView;
-    ImageView call;
+    ImageView call, sms;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +62,19 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialPhoneNumber(prod.getPhoneNumber());
+            }
+        });
+
+        sms = findViewById(R.id.mess);
+        sms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //chua co class MessActivity.
+                // tao cai sms truc tiep tren app luon. neu cam thay ko on khi tao tren app thi dung sms cung dc
+                //Intent i = new Intent(this, MessActivity.class);
+                //i.putExtra("phoneNumber", prod.getPhoneNumber());
+                //startActivity(i);
+                Toast.makeText(DetailActivity.this, "Messages", Toast.LENGTH_SHORT).show();
             }
         });
     }

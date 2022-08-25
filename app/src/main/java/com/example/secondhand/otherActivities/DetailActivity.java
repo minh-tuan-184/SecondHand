@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,30 +31,30 @@ public class DetailActivity extends AppCompatActivity {
         actionBar.setTitle("Back");
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Product prod = (Product)getIntent().getParcelableExtra("product");
+        Product prod = (Product) getIntent().getParcelableExtra("product");
         if (prod != null) {
-            textView = (TextView)findViewById(R.id.nameProduct_detail);
+            textView = (TextView) findViewById(R.id.nameProduct_detail);
             textView.setText(prod.getNameProduct());
 
-            textView = (TextView)findViewById(R.id.priceProduct_detail);
+            textView = (TextView) findViewById(R.id.priceProduct_detail);
             textView.setText(prod.getPriceProduct());
 
-            textView = (TextView)findViewById(R.id.ratingProduct_detail);
+            textView = (TextView) findViewById(R.id.ratingProduct_detail);
             textView.setText(prod.getRatingProduct());
 
-            textView = (TextView)findViewById(R.id.detailProduct_detail);
+            textView = (TextView) findViewById(R.id.detailProduct_detail);
             textView.setText(prod.getDetailProduct());
 
-            textView = (TextView)findViewById(R.id.category_detail);
+            textView = (TextView) findViewById(R.id.category_detail);
             textView.setText(prod.getCategoryProduct());
 
             imageView = (ImageView) findViewById(R.id.image_detail);
             imageView.setImageResource(prod.getImageUrl());
 
-            textView = (TextView)findViewById(R.id.remain_detail);
+            textView = (TextView) findViewById(R.id.remain_detail);
             textView.setText(String.valueOf(prod.getRemainProduct()));
 
-            textView = (TextView)findViewById(R.id.phone_detail);
+            textView = (TextView) findViewById(R.id.phone_detail);
             textView.setText(prod.getPhoneNumber());
         }
 
@@ -69,12 +70,9 @@ public class DetailActivity extends AppCompatActivity {
         sms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //chua co class MessActivity.
-                // tao cai sms truc tiep tren app luon. neu cam thay ko on khi tao tren app thi dung sms cung dc
-                //Intent i = new Intent(this, MessActivity.class);
-                //i.putExtra("phoneNumber", prod.getPhoneNumber());
-                //startActivity(i);
-                Toast.makeText(DetailActivity.this, "Messages", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", prod.getPhoneNumber(), null));
+                intent.putExtra("sms_body", "Hello, I would like to buy your product!");
+                startActivity(intent);
             }
         });
     }
@@ -91,4 +89,6 @@ public class DetailActivity extends AppCompatActivity {
             ).show();
         }
     }
+
+
 }

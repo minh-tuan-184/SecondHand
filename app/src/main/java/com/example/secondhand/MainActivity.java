@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.secondhand.adapter.CategoryAdapter;
 import com.example.secondhand.adapter.ProductAdapter;
+import com.example.secondhand.otherActivities.Login_SignUp;
 import com.example.secondhand.product.Category;
 import com.example.secondhand.product.Product;
 
@@ -20,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView productRecycler, categoryRecycler;
     ProductAdapter pAdapter;
     CategoryAdapter cAdapter;
+    ImageView account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +59,15 @@ public class MainActivity extends AppCompatActivity {
 
         setProductRecycler(productList);
         setCategoryRecycler(productList, categoryList);
+
+        account = findViewById(R.id.account);
+        account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Login_SignUp.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setProductRecycler(List<Product> productList) {

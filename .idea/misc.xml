@@ -7,10 +7,12 @@
         <entry key="..\:/2nd_year/Trash/SecondHand/app/src/main/res/drawable/thucan.xml" value="0.1" />
         <entry key="..\:/2nd_year/Trash/SecondHand/app/src/main/res/layout/activity_category.xml" value="0.16032608695652173" />
         <entry key="..\:/2nd_year/Trash/SecondHand/app/src/main/res/layout/activity_detail.xml" value="0.22" />
-        <entry key="..\:/2nd_year/Trash/SecondHand/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/2nd_year/Trash/SecondHand/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/2nd_year/Trash/SecondHand/app/src/main/res/layout/category_item.xml" value="0.5" />
         <entry key="..\:/2nd_year/Trash/SecondHand/app/src/main/res/layout/product_item.xml" value="0.33" />
+        <entry key="..\:/Users/TUAN/mobile_final/SecondHand/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1" />
+        <entry key="..\:/Users/TUAN/mobile_final/SecondHand/app/src/main/res/drawable/ic_baseline_star_rate_24.xml" value="0.1" />
+        <entry key="..\:/Users/TUAN/mobile_final/SecondHand/app/src/main/res/layout/activity_login.xml" value="0.1" />
       </map>
     </option>
   </component>

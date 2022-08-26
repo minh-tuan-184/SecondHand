@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "336819316168",
+    "project_id": "goodmarket-81ea9",
+    "storage_bucket": "goodmarket-81ea9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336819316168:android:b8c41a3d57821dd9cb0cfd",
+        "android_client_info": {
+          "package_name": "com.example.secondhand"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "336819316168-bmb0phts119f6oi5s7p7hkjsf6e6vu4k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY1ZTEIUb3FwjIbUh5rTI3-2X2M70C29M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "336819316168-bmb0phts119f6oi5s7p7hkjsf6e6vu4k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

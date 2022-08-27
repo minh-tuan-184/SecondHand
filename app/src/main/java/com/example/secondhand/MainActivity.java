@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getList() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //FirebaseAuth database1 = FirebaseAuth.getInstance();
         DatabaseReference ref = database.getReference("productList");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 setProductRecycler(productList);
                 setCategoryRecycler(productList, categoryList);
+                //Toast.makeText(MainActivity.this, database1.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
             }
 
             @Override

@@ -10,17 +10,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.secondhand.MainActivity;
 import com.example.secondhand.R;
 import com.example.secondhand.product.Product;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class DetailActivity extends AppCompatActivity {
     TextView textView;
     Integer tmp;
     ImageView imageView;
-    ImageView call, sms;
+    ImageView call, sms, love;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +83,13 @@ public class DetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        love = findViewById(R.id.love_list);
+        love.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
     }
 
     public void dialPhoneNumber(String phoneNumber) {
@@ -89,6 +104,4 @@ public class DetailActivity extends AppCompatActivity {
             ).show();
         }
     }
-
-
 }

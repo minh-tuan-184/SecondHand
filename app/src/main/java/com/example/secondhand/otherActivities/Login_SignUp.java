@@ -9,23 +9,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.secondhand.MainActivity;
 import com.example.secondhand.otherActivities.User;
 import com.example.secondhand.R;
+import com.example.secondhand.product.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Login_SignUp extends AppCompatActivity {
     TextView register;
     TextView textLog_Sign, email, password;
     Button btnLog;
-    //Button btnOut;
+
+    List<User> userList = new ArrayList<>();
+    DatabaseReference ref = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,25 +49,30 @@ public class Login_SignUp extends AppCompatActivity {
 
 
         FirebaseAuth database = FirebaseAuth.getInstance();
+        FirebaseDatabase database1 = FirebaseDatabase.getInstance();
+
+
         register = findViewById(R.id.register);
         textLog_Sign = findViewById(R.id.log_sign);
         email = findViewById(R.id.Email);
         password = findViewById(R.id.password);
         btnLog = findViewById(R.id.login);
 
+
         if (checkLogInOrNot(database) == false) {
             btnLog.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    if (btnLog.getText().toString().trim() == "Register") {
+                    if (btnLog.getText().toString().trim().equals("Register")) {
                         //nay la dang ky
                         database.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(Login_SignUp.this, "Account created successfully", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(), Login_SignUp.class));
+                                    //getUser(database1);
+                                    createUseronFB(database1, new User(email.getText().toString()));
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 } else {
                                     Toast.makeText(Login_SignUp.this, "Error register! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
@@ -115,5 +132,36 @@ public class Login_SignUp extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    private void createUseronFB(FirebaseDatabase database1, User user) {
+
+        Toast.makeText(this, "Check Function", Toast.LENGTH_SHORT).show();
+        ref = database1.getReference("User");
+        ref.child(password.getText().toString()).setValue(user);
+
+    }
+
+    private void getUser(FirebaseDatabase database1) {
+        ref = database1.getReference("User");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    User newUser = dataSnapshot.getValue(User.class);
+                    userList.add(newUser);
+                }
+                Toast.makeText(Login_SignUp.this, "For loop end", Toast.LENGTH_SHORT).show();
+                userList.add(new User(email.getText().toString()));
+                //createUseronFB(database1, userList);
+                finish();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(Login_SignUp.this, "Can not get data of user!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

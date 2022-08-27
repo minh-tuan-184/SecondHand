@@ -20,10 +20,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+
 public class Login_SignUp extends AppCompatActivity {
     TextView register;
     TextView textLog_Sign, email, password;
     Button btnLog;
+    //Button btnOut;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,50 +43,51 @@ public class Login_SignUp extends AppCompatActivity {
         password = findViewById(R.id.password);
         btnLog = findViewById(R.id.login);
 
-        User newUser = new User(email.getText().toString(), password.getText().toString());
+        if (checkLogInOrNot(database) == false) {
+            btnLog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-        btnLog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (btnLog.getText().toString().trim() == "Register") {
-                    //nay la dang ky
-                    database.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(Login_SignUp.this, "Account created successfully", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), Login_SignUp.class));
-                            } else {
-                                Toast.makeText(Login_SignUp.this, "Error register! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-                else if (btnLog.getText().toString().equals("Log in") ) {
-                    //nay la dang nhap
-                    if(email.getText().equals(null) || password.getText().equals(null)) {
-                        Toast.makeText(Login_SignUp.this, "Your email and password can not be null", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        database.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    if (btnLog.getText().toString().trim() == "Register") {
+                        //nay la dang ky
+                        database.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(Login_SignUp.this, "Log in successfully", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    Toast.makeText(Login_SignUp.this, "Account created successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), Login_SignUp.class));
                                 } else {
-                                    Toast.makeText(Login_SignUp.this, "Error log in! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login_SignUp.this, "Error register! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
+                    } else if (btnLog.getText().toString().equals("Log in")) {
+                        //nay la dang nhap
+                        if (email.getText().equals(null) || password.getText().equals(null)) {
+                            Toast.makeText(Login_SignUp.this, "Your email and password can not be null", Toast.LENGTH_SHORT).show();
+                        } else {
+                            database.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(Login_SignUp.this, "Log in successfully", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    } else {
+                                        Toast.makeText(Login_SignUp.this, "Error log in! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    } else {
+                        Toast.makeText(Login_SignUp.this, "Error and error", Toast.LENGTH_SHORT).show();
                     }
                 }
-                else {
-                    Toast.makeText(Login_SignUp.this, "Error and error", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
+            });
+        }
+        else {
+            Intent intent = new Intent(this, LogOut.class);
+            startActivity(intent);
+        }
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +109,11 @@ public class Login_SignUp extends AppCompatActivity {
                 }
             }
         });
-
+    }
+    private boolean checkLogInOrNot(FirebaseAuth database) {
+        if(database.getCurrentUser() != null){
+            return true;
+        }
+        return false;
     }
 }

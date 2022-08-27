@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.secondhand.R;
 import com.example.secondhand.otherActivities.DetailActivity;
 import com.example.secondhand.product.Product;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
 
     Context context;
     List<Product> productList;
-
+    FirebaseAuth database = FirebaseAuth.getInstance();
 
     public ProductAdapter(Context context, List<Product> productList) {
         this.context = context;
@@ -45,14 +46,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
            Intent i = new Intent(context, DetailActivity.class);
            Product newProd = new Product(productList.get(position).getNameProduct(),
                    productList.get(position).getPriceProduct(),
-                   productList.get(position).getRatingProduct(),
                    productList.get(position).getDetailProduct(),
                    productList.get(position).getCategoryProduct(),
                    productList.get(position).getImageUrl(),
                    productList.get(position).getRemainProduct(),
-                   productList.get(position).getPhoneNumber());
+                   productList.get(position).getPhoneNumber(),
+                   productList.get(position).getStar());
            i.putExtra("product", newProd);
-           context.startActivity(i);
        });
     }
 

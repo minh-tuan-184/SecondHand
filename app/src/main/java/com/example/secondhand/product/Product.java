@@ -2,6 +2,13 @@ package com.example.secondhand.product;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Product implements Parcelable {
     String nameProduct;
@@ -12,16 +19,42 @@ public class Product implements Parcelable {
     Integer imageUrl;
     Integer remainProduct;
     String phoneNumber;
+    List<Integer> star = new ArrayList<>();
 
-    public Product(String nameProduct, String priceProduct, String ratingProduct, String detailProduct, String categoryProduct, Integer imageUrl, Integer remainProduct, String phoneNumber) {
+    public Product () {
+
+    }
+
+    public Product(String nameProduct, String priceProduct, String detailProduct, String categoryProduct, Integer imageUrl, Integer remainProduct, String phoneNumber, List<Integer> star) {
         this.nameProduct = nameProduct;
         this.priceProduct = priceProduct;
-        this.ratingProduct = ratingProduct;
         this.detailProduct = detailProduct;
         this.categoryProduct = categoryProduct;
         this.imageUrl = imageUrl;
         this.remainProduct = remainProduct;
         this.phoneNumber = phoneNumber;
+        this.star = star;
+        int sum=0;
+        for(int i=0;i<this.star.size();++i) {
+            sum = sum + this.star.get(i);
+        }
+        if (this.star.size() > 1) {
+            this.ratingProduct = String.valueOf(sum / this.star.size() - 1);
+        }
+        else this.ratingProduct = String.valueOf(0);
+    }
+
+    public Product(String nameProduct, String priceProduct, String detailProduct, String categoryProduct, Integer imageUrl, Integer remainProduct, String phoneNumber) {
+        this.nameProduct = nameProduct;
+        this.priceProduct = priceProduct;
+        this.detailProduct = detailProduct;
+        this.categoryProduct = categoryProduct;
+        this.imageUrl = imageUrl;
+        this.remainProduct = remainProduct;
+        this.phoneNumber = phoneNumber;
+        /*this.star = new ArrayList<>();*/
+        this.ratingProduct = String.valueOf(star.size());
+        star.add(0);
     }
 
     protected Product(Parcel in) {
@@ -119,6 +152,13 @@ public class Product implements Parcelable {
         this.phoneNumber = phoneNumber;
     }
 
+    public List<Integer> getStar() {
+        return star;
+    }
+
+    public void setStar(List<Integer> star) {
+        this.star = star;
+    }
 
     @Override
     public int describeContents() {

@@ -1,5 +1,7 @@
 package com.example.secondhand;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,13 +10,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.secondhand.adapter.CategoryAdapter;
 import com.example.secondhand.adapter.ProductAdapter;
+import com.example.secondhand.otherActivities.DetailActivity;
 import com.example.secondhand.otherActivities.Login_SignUp;
 import com.example.secondhand.product.Category;
 import com.example.secondhand.product.Product;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     ProductAdapter pAdapter;
     CategoryAdapter cAdapter;
     ImageView account;
+    Button btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,17 +47,18 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setTitle("20125104 - 20125122");
 
         List<Product> productList = new ArrayList<>();
-
-        productList.add(new Product("Nhà mặt phố cây xăng 99m^2", "4.990.000.000đ", "4.5", "Nhà đẹp mã, có ma ám cần thanh lý cho những người can đảm", "Real Estate", R.drawable.nha, 1, "0931488542"));
-        productList.add(new Product("Xe moto Yamaha", "32.560.000đ", "3.8", "Xe chạy đường trường siêu êm", "Transport", R.drawable.moto_yamaha, 19, "0963566882"));
-        productList.add(new Product("Sữa bột Ensure Gold", "200.000đ", "4.2", "Nhiều dưỡng chất thiết yếu dành cho trẻ sơ sinh", "Food", R.drawable.sua_bot, 25, "0964255014"));
-        productList.add(new Product("Áo thun chất chơi người dơi", "352.200đ", "3.9", "Áo thun mát mẻ cho những ngày hè năng động", "Clothes", R.drawable.ao_thun_1, 347, "0908863636"));
-        productList.add(new Product("Áo thun tay lỗ", "150.000đ", "4.1", "Áo thun để đi chơi ngày hè", "Clothes", R.drawable.ao_thun_2,134, "0956335681"));
-        productList.add(new Product("Áo thun nhiều màu sắc", "195.000đ", "3.7", "Áo thun mát mẻ - tìm lại tuổi thanh xuân", "Clothes", R.drawable.ao_thun_3, 705, "0909631035"));
-        productList.add(new Product("Dao nĩa bàn tiệc", "58.750đ", "4.0", "Dao nĩa theo phong cách phương tây", "Item", R.drawable.dao_nia, 208, "0975266348"));
-        productList.add(new Product("Tivi màn hình phẳng full HD 4k", "30.640.300đ", "4.5", "Thiết kế sang trọng, đẹp mắt, chất lượng hình ảnh cực tốt, có kết nối mạng có thể xem YouTube", "Item", R.drawable.tivi, 3, "0797751743"));
-        productList.add(new Product("Guitar Acoustic", "1.500.000đ", "4.7", "Đàn đã mua nhưng chỉ sử dụng được vài lần, nay em muốn pass lại ạ!", "Musical Instruments", R.drawable.guitaracoustic, 3, "01214531748"));
-        productList.add(new Product("Piano", "36.170.300đ", "3.8", "Đàn piano du dương êm dịu", "Musical Instruments", R.drawable.piano, 1, "0903127754"));
+        getList(productList);
+        /*productList.add(new Product("Nhà mặt phố cây xăng 99m^2", "4.990.000.000đ", "Nhà đẹp mã, có ma ám cần thanh lý cho những người can đảm", "Real Estate", R.drawable.nha, 1, "0931488542"));
+        productList.add(new Product("Xe moto Yamaha", "32.560.000đ", "Xe chạy đường trường siêu êm", "Transport", R.drawable.moto_yamaha, 19, "0963566882"));
+        productList.add(new Product("Sữa bột Ensure Gold", "200.000đ", "Nhiều dưỡng chất thiết yếu dành cho trẻ sơ sinh", "Food", R.drawable.sua_bot, 25, "0964255014"));
+        productList.add(new Product("Áo thun chất chơi người dơi", "352.200đ", "Áo thun mát mẻ cho những ngày hè năng động", "Clothes", R.drawable.ao_thun_1, 347, "0908863636"));
+        productList.add(new Product("Áo thun tay lỗ", "150.000đ", "Áo thun để đi chơi ngày hè", "Clothes", R.drawable.ao_thun_2,134, "0956335681"));
+        productList.add(new Product("Áo thun nhiều màu sắc", "195.000đ", "Áo thun mát mẻ - tìm lại tuổi thanh xuân", "Clothes", R.drawable.ao_thun_3, 705, "0909631035"));
+        productList.add(new Product("Dao nĩa bàn tiệc", "58.750đ", "Dao nĩa theo phong cách phương tây", "Item", R.drawable.dao_nia, 208, "0975266348"));
+        productList.add(new Product("Tivi màn hình phẳng full HD 4k", "30.640.300đ", "Thiết kế sang trọng, đẹp mắt, chất lượng hình ảnh cực tốt, có kết nối mạng có thể xem YouTube", "Item", R.drawable.tivi, 3, "0797751743"));
+        productList.add(new Product("Guitar Acoustic", "1.500.000đ", "Đàn đã mua nhưng chỉ sử dụng được vài lần, nay em muốn pass lại ạ!", "Musical Instruments", R.drawable.guitaracoustic, 3, "01214531748"));
+        productList.add(new Product("Piano", "36.170.300đ", "Đàn piano du dương êm dịu", "Musical Instruments", R.drawable.piano, 1, "0903127754"));
+        */
 
         List<Category> categoryList = new ArrayList<>();
 
@@ -66,6 +80,46 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Login_SignUp.class);
                 startActivity(intent);
+            }
+        });
+
+        btn = findViewById(R.id.addtoFB);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addList(productList);
+            }
+        });
+    }
+
+    private void addList(List<Product> p) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("productList");
+        ref.setValue(p, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                Toast.makeText(MainActivity.this, "Add complete", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getList(List<Product> p) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("productList");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Product newProduct = dataSnapshot.getValue(Product.class);
+                    p.add(newProduct);
+                }
+                pAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MainActivity.this, "Can not get data!", Toast.LENGTH_SHORT).show();
             }
         });
     }

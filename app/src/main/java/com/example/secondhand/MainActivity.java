@@ -49,26 +49,8 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("20125104 - 20125122");
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("productList");
-        Toast.makeText(this, "Get", Toast.LENGTH_SHORT).show();
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Product newProduct = dataSnapshot.getValue(Product.class);
-                    productList.add(newProduct);
-                }
-                Toast.makeText(MainActivity.this, String.valueOf(productList.size() + 100), Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this, "Can not get data!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        Toast.makeText(this, String.valueOf(productList.size()), Toast.LENGTH_SHORT).show();
+        getList();
         /*productList.add(new Product("Nhà mặt phố cây xăng 99m^2", "4.990.000.000đ", "Nhà đẹp mã, có ma ám cần thanh lý cho những người can đảm", "Real Estate", R.drawable.nha, 1, "0931488542"));
         productList.add(new Product("Xe moto Yamaha", "32.560.000đ", "Xe chạy đường trường siêu êm", "Transport", R.drawable.moto_yamaha, 19, "0963566882"));
         productList.add(new Product("Sữa bột Ensure Gold", "200.000đ", "Nhiều dưỡng chất thiết yếu dành cho trẻ sơ sinh", "Food", R.drawable.sua_bot, 25, "0964255014"));
@@ -93,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         //getList();
-        setProductRecycler(productList);
-        setCategoryRecycler(productList, categoryList);
+        //setProductRecycler(productList);
+        //setCategoryRecycler(productList, categoryList);
 
         account = findViewById(R.id.account);
         account.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
     private void getList() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("productList");
-        Toast.makeText(this, "Get", Toast.LENGTH_SHORT).show();
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -128,7 +109,8 @@ public class MainActivity extends AppCompatActivity {
                     Product newProduct = dataSnapshot.getValue(Product.class);
                     productList.add(newProduct);
                 }
-                Toast.makeText(MainActivity.this, String.valueOf(productList.size() + 100), Toast.LENGTH_SHORT).show();
+                setProductRecycler(productList);
+                setCategoryRecycler(productList, categoryList);
             }
 
             @Override

@@ -54,6 +54,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
                    productList.get(position).getPhoneNumber(),
                    productList.get(position).getStar());
            i.putExtra("product", newProd);
+           context.startActivity(i);
        });
     }
 

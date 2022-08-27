@@ -82,14 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        btn = findViewById(R.id.addtoFB);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addList(productList);
-            }
-        });
     }
 
     private void addList(List<Product> p) {

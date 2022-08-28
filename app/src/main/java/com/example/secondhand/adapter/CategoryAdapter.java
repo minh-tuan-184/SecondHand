@@ -52,7 +52,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             String tmp = categoryList.get(position).getNameCategory();
 
             for(int i = 0; i < productList.size(); ++i) {
-                if (productList.get(i).getCategoryProduct() != tmp && i >= 0) {
+                if (!productList.get(i).getCategoryProduct().equals(tmp) && i >= 0) {
                     productList.remove(i);
                     --i;
                 }

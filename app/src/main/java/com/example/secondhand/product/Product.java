@@ -45,21 +45,18 @@ public class Product implements Parcelable {
         this.remainProduct = remainProduct;
         this.phoneNumber = phoneNumber;
         this.star = star;
-        String sum = "0";
-        /*for(int i=0;i<this.star.size();++i) {
-            sum = sum + this.star.get(i);
-        }
-        if (this.star.size() > 1) {
-            this.ratingProduct = String.valueOf(sum / this.star.size() - 1);
-        }
-        else this.ratingProduct = String.valueOf(0);*/
+        String sum = "";
+        Integer intstar = 0;
+
+
         Collection<Object> values = this.star.values();
         for(Object i : values) {
-            sum = i + sum;
+            sum = "" + i;
+            intstar = intstar + Integer.parseInt(sum);
         }
 
         if (this.star.size() > 1) {
-            this.ratingProduct = String.valueOf(Integer.parseInt(sum) / (this.star.size() - 1));
+            this.ratingProduct = String.valueOf(intstar / (this.star.size() - 1));
         } else this.ratingProduct = String.valueOf(0);
     }
 

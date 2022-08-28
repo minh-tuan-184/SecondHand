@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         getList();
+
         /*productList.add(new Product("Nhà mặt phố cây xăng 99m^2", "4.990.000.000đ", "Nhà đẹp mã, có ma ám cần thanh lý cho những người can đảm", "Real Estate", R.drawable.nha, 1, "0931488542"));
         productList.add(new Product("Xe moto Yamaha", "32.560.000đ", "Xe chạy đường trường siêu êm", "Transport", R.drawable.moto_yamaha, 19, "0963566882"));
         productList.add(new Product("Sữa bột Ensure Gold", "200.000đ", "Nhiều dưỡng chất thiết yếu dành cho trẻ sơ sinh", "Food", R.drawable.sua_bot, 25, "0964255014"));
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         productList.add(new Product("Tivi màn hình phẳng full HD 4k", "30.640.300đ", "Thiết kế sang trọng, đẹp mắt, chất lượng hình ảnh cực tốt, có kết nối mạng có thể xem YouTube", "Item", R.drawable.tivi, 3, "0797751743"));
         productList.add(new Product("Guitar Acoustic", "1.500.000đ", "Đàn đã mua nhưng chỉ sử dụng được vài lần, nay em muốn pass lại ạ!", "Musical Instruments", R.drawable.guitaracoustic, 3, "01214531748"));
         productList.add(new Product("Piano", "36.170.300đ", "Đàn piano du dương êm dịu", "Musical Instruments", R.drawable.piano, 1, "0903127754"));
-        */
+        //addList(productList);*/
 
 
 
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Login_SignUp.class);
                 startActivity(intent);
+                //addList(productList);
             }
         });
     }

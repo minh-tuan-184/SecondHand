@@ -138,7 +138,7 @@ public class Login_SignUp extends AppCompatActivity {
 
         Toast.makeText(this, "Check Function", Toast.LENGTH_SHORT).show();
         ref = database1.getReference("User");
-        ref.child(password.getText().toString()).setValue(user);
+        ref.child(user.getName()).setValue(user);
 
     }
 

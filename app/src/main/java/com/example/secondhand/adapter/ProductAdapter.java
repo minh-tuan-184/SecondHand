@@ -45,6 +45,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
        holder.price.setText(productList.get(position).getPriceProduct());
        holder.itemView.setOnClickListener(view -> {
            Intent i = new Intent(context, DetailActivity.class);
+           Toast.makeText(context, "cbi lay product", Toast.LENGTH_SHORT).show();
            Product newProd = new Product(productList.get(position).getNameProduct(),
                    productList.get(position).getPriceProduct(),
                    productList.get(position).getDetailProduct(),
@@ -54,6 +55,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
                    productList.get(position).getPhoneNumber(),
                    productList.get(position).getStar());
            i.putExtra("product", newProd);
+           i.putExtra("position", position);
+           Toast.makeText(context, "lay ok", Toast.LENGTH_SHORT).show();
            context.startActivity(i);
        });
     }

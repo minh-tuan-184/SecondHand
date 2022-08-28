@@ -83,7 +83,7 @@
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/voteStar"
         android:layout_width="20dp"
         android:layout_height="19dp"
         android:layout_marginTop="64dp"

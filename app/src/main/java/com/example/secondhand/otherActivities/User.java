@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User implements Parcelable {
-    String email;
+    String email, name = null;
     List<String> loveList;
 
     public User() {
@@ -35,6 +35,11 @@ public class User implements Parcelable {
         this.email = email;
         loveList = new ArrayList<>();
         loveList.add("null");
+        /*for(int i=0 ;i< this.email.length(); ++i) {
+            if (this.email.charAt(i) == '@') break;
+            name = name + this.email.charAt(i);
+        }*/
+        name = this.email.substring(0, this.email.length() - 10);
     }
 
     public void setData_User() {
@@ -42,6 +47,10 @@ public class User implements Parcelable {
         DatabaseReference ref = database.getReference(this.email);
         ref.setValue(loveList);
     }
+
+    public String getName() {return name;}
+
+    public void setName(String name) {this.name = name;}
 
     public String getEmail() {
         return email;

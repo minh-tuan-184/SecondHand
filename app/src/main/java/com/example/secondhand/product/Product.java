@@ -1,14 +1,20 @@
 package com.example.secondhand.product;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Product implements Parcelable {
     String nameProduct;
@@ -19,13 +25,18 @@ public class Product implements Parcelable {
     Integer imageUrl;
     Integer remainProduct;
     String phoneNumber;
-    List<Integer> star = new ArrayList<>();
-
+    //List<Integer> star = new ArrayList<>();
+    Map<String, Object> star = new HashMap<>();
     public Product () {
 
     }
 
-    public Product(String nameProduct, String priceProduct, String detailProduct, String categoryProduct, Integer imageUrl, Integer remainProduct, String phoneNumber, List<Integer> star) {
+    public void addStarList(String n, Object s) {
+        //this.star.add(s);
+        this.star.put(n,s);
+    }
+
+    public Product(String nameProduct, String priceProduct, String detailProduct, String categoryProduct, Integer imageUrl, Integer remainProduct, String phoneNumber, Map<String, Object> star) {
         this.nameProduct = nameProduct;
         this.priceProduct = priceProduct;
         this.detailProduct = detailProduct;
@@ -34,14 +45,22 @@ public class Product implements Parcelable {
         this.remainProduct = remainProduct;
         this.phoneNumber = phoneNumber;
         this.star = star;
-        int sum=0;
-        for(int i=0;i<this.star.size();++i) {
+        String sum = "0";
+        /*for(int i=0;i<this.star.size();++i) {
             sum = sum + this.star.get(i);
         }
         if (this.star.size() > 1) {
             this.ratingProduct = String.valueOf(sum / this.star.size() - 1);
         }
-        else this.ratingProduct = String.valueOf(0);
+        else this.ratingProduct = String.valueOf(0);*/
+        Collection<Object> values = this.star.values();
+        for(Object i : values) {
+            sum = i + sum;
+        }
+
+        if (this.star.size() > 1) {
+            this.ratingProduct = String.valueOf(Integer.parseInt(sum) / (this.star.size() - 1));
+        } else this.ratingProduct = String.valueOf(0);
     }
 
     public Product(String nameProduct, String priceProduct, String detailProduct, String categoryProduct, Integer imageUrl, Integer remainProduct, String phoneNumber) {
@@ -54,7 +73,7 @@ public class Product implements Parcelable {
         this.phoneNumber = phoneNumber;
         /*this.star = new ArrayList<>();*/
         this.ratingProduct = String.valueOf(star.size());
-        star.add(0);
+        star.put("noname", 0);
     }
 
     protected Product(Parcel in) {
@@ -152,11 +171,11 @@ public class Product implements Parcelable {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Integer> getStar() {
+    public Map<String, Object> getStar() {
         return star;
     }
 
-    public void setStar(List<Integer> star) {
+    public void setStar(Map<String, Object> star) {
         this.star = star;
     }
 

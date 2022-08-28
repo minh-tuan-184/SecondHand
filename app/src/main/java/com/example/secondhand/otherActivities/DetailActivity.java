@@ -27,7 +27,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView textView;
     Integer tmp;
     ImageView imageView;
-    ImageView call, sms, love;
+    ImageView call, sms, love, rating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,9 @@ public class DetailActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         Product prod = (Product) getIntent().getParcelableExtra("product");
+        Integer pos = getIntent().getIntExtra("position", 0);
         if (prod != null) {
+            //Toast.makeText(this, "la sao me", Toast.LENGTH_SHORT).show();
             textView = (TextView) findViewById(R.id.nameProduct_detail);
             textView.setText(prod.getNameProduct());
 
@@ -88,6 +90,17 @@ public class DetailActivity extends AppCompatActivity {
         love.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            }
+        });
+
+        rating = findViewById(R.id.voteStar);
+        rating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailActivity.this, RatingActivity.class);
+                intent.putExtra("addStar",prod);
+                intent.putExtra("pos", pos);
+                startActivity(intent);
             }
         });
     }

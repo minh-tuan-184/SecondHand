@@ -15,13 +15,16 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.secondhand.adapter.CategoryAdapter;
 import com.example.secondhand.adapter.ProductAdapter;
 import com.example.secondhand.otherActivities.Login_SignUp;
 import com.example.secondhand.otherActivities.LoveList;
+import com.example.secondhand.otherActivities.SearchResult;
 import com.example.secondhand.product.Category;
 import com.example.secondhand.product.Product;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,8 +42,9 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView productRecycler, categoryRecycler;
     ProductAdapter pAdapter;
     CategoryAdapter cAdapter;
-    ImageView account;
+    ImageView account, search;
     Button btn;
+    EditText editText;
     public ArrayList<Product> productList = new ArrayList<>();
     List<Category> categoryList = new ArrayList<>();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -86,6 +90,20 @@ public class MainActivity extends AppCompatActivity {
         //getList();
         //setProductRecycler(productList);
         //setCategoryRecycler(productList, categoryList);
+
+
+        search = findViewById(R.id.searching);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editText = findViewById(R.id.input_search);
+                String s = editText.getText().toString();
+                Intent i = new Intent(MainActivity.this, SearchResult.class);
+                i.putExtra("SearchString", s);
+                i.putParcelableArrayListExtra("listResult", productList);
+                startActivity(i);
+            }
+        });
 
         account = findViewById(R.id.account);
         account.setOnClickListener(new View.OnClickListener() {

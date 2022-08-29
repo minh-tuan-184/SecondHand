@@ -57,6 +57,12 @@
             android:parentActivityName=".MainActivity"
             android:exported="true">
         </activity>
+
+        <activity
+            android:name=".otherActivities.SearchResult"
+            android:parentActivityName=".MainActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

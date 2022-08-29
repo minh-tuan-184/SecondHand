@@ -27,11 +27,12 @@ public class LogOut extends AppCompatActivity {
         btnOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (database.getCurrentUser() != null)
+                if (database.getCurrentUser() != null) {
                     database.getInstance().signOut();
-                Toast.makeText(LogOut.this, "Log out successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LogOut.this, MainActivity.class);
-                startActivity(intent);
+                    Toast.makeText(LogOut.this, "Log out successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LogOut.this, MainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }

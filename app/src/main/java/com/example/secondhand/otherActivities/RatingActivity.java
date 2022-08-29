@@ -1,5 +1,6 @@
 package com.example.secondhand.otherActivities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.secondhand.MainActivity;
 import com.example.secondhand.R;
 import com.example.secondhand.product.Product;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,8 +27,14 @@ public class RatingActivity extends AppCompatActivity {
         FirebaseAuth database = FirebaseAuth.getInstance();
         actionBar.setTitle("Back");
 
-
-        name = database.getCurrentUser().getEmail().substring(0, database.getCurrentUser().getEmail().length() - 10);
+        if(database.getCurrentUser() != null && database.getCurrentUser().getEmail().length() > 11) {
+            name = database.getCurrentUser().getEmail().substring(0, database.getCurrentUser().getEmail().length() - 10);
+        }
+        else {
+            Toast.makeText(this, "You have to sign in to rate", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(RatingActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
 
         s1 = findViewById(R.id.star1);
         s2 = findViewById(R.id.star2);
@@ -95,6 +103,6 @@ public class RatingActivity extends AppCompatActivity {
     private void updateList(Integer pos, Product product) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("productList");
         ref.child(String.valueOf(pos)).child("star").updateChildren(product.getStar());
-        Toast.makeText(this, "update ok", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show();
     }
 }

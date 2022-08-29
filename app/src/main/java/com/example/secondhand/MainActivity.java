@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -21,8 +20,8 @@ import android.widget.Toast;
 
 import com.example.secondhand.adapter.CategoryAdapter;
 import com.example.secondhand.adapter.ProductAdapter;
-import com.example.secondhand.otherActivities.DetailActivity;
 import com.example.secondhand.otherActivities.Login_SignUp;
+import com.example.secondhand.otherActivities.LoveList;
 import com.example.secondhand.product.Category;
 import com.example.secondhand.product.Product;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
     CategoryAdapter cAdapter;
     ImageView account;
     Button btn;
-    public List<Product> productList = new ArrayList<>();
+    public ArrayList<Product> productList = new ArrayList<>();
     List<Category> categoryList = new ArrayList<>();
-
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +94,18 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), Login_SignUp.class);
                 startActivity(intent);
                 //addList(productList);
+            }
+        });
+
+        btn = findViewById(R.id.btn_loveList);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (firebaseAuth.getCurrentUser() != null) {
+                    Intent intent = new Intent(v.getContext(), LoveList.class);
+                    intent.putParcelableArrayListExtra("pList", productList);
+                    startActivity(intent);
+                } else Toast.makeText(MainActivity.this, "You should log in to do this action", Toast.LENGTH_SHORT).show();
             }
         });
     }

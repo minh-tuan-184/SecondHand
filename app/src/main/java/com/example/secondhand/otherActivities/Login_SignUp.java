@@ -135,11 +135,8 @@ public class Login_SignUp extends AppCompatActivity {
     }
 
     private void createUseronFB(FirebaseDatabase database1, User user) {
-
-        Toast.makeText(this, "Check Function", Toast.LENGTH_SHORT).show();
         ref = database1.getReference("User");
         ref.child(user.getName()).setValue(user);
-
     }
 
     private void getUser(FirebaseDatabase database1) {

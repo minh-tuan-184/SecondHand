@@ -19,16 +19,23 @@ import com.example.secondhand.MainActivity;
 import com.example.secondhand.R;
 import com.example.secondhand.product.Product;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
     TextView textView;
-    Integer tmp;
     ImageView imageView;
     ImageView call, sms, love, rating;
-
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    DatabaseReference ref = null;
+    ArrayList<User> userArrayList = new ArrayList<>();
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +48,9 @@ public class DetailActivity extends AppCompatActivity {
 
         Product prod = (Product) getIntent().getParcelableExtra("product");
         Integer pos = getIntent().getIntExtra("position", 0);
+        User user = new User(firebaseAuth.getCurrentUser().getEmail());
+
         if (prod != null) {
-            //Toast.makeText(this, "la sao me", Toast.LENGTH_SHORT).show();
             textView = (TextView) findViewById(R.id.nameProduct_detail);
             textView.setText(prod.getNameProduct());
 
@@ -66,6 +74,9 @@ public class DetailActivity extends AppCompatActivity {
 
             textView = (TextView) findViewById(R.id.phone_detail);
             textView.setText(prod.getPhoneNumber());
+
+            love = (ImageView) findViewById(R.id.love_list);
+            love.setImageResource(R.drawable.redheart);
         }
 
         call = findViewById(R.id.phonecall);
@@ -90,6 +101,7 @@ public class DetailActivity extends AppCompatActivity {
         love.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                addLoveList(prod, user);
             }
         });
 
@@ -116,5 +128,16 @@ public class DetailActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT
             ).show();
         }
+    }
+
+    public void addLoveList (Product product, User user) {
+
+        String subemail = firebaseAuth.getCurrentUser().getEmail().substring(0, firebaseAuth.getCurrentUser().getEmail().length() - 10);
+
+        user.addLove(product.getNameProduct());
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("User");
+        ref.child(subemail).child("loveList").updateChildren(user.getLoveList());
+
+        Toast.makeText(this, "Add " + (char)34 + product.getNameProduct() + (char)34 + " to love list", Toast.LENGTH_SHORT).show();
     }
 }

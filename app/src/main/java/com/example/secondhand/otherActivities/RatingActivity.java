@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -23,6 +24,7 @@ public class RatingActivity extends AppCompatActivity {
     Product product;
     Integer integer, check = 0;
     Button cancel, submit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +59,7 @@ public class RatingActivity extends AppCompatActivity {
         s3.setImageResource(R.drawable.star_off);
         s4.setImageResource(R.drawable.star_off);
         s5.setImageResource(R.drawable.star_off);
+
 
         s1.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -49,7 +49,6 @@
 
         <activity
             android:name=".otherActivities.RatingActivity"
-            android:parentActivityName=".MainActivity"
             android:exported="true">
         </activity>
 

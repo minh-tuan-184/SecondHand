@@ -77,6 +77,7 @@ public class DetailActivity extends AppCompatActivity {
 
             love = (ImageView) findViewById(R.id.love_list);
             love.setImageResource(R.drawable.redheart);
+
         }
 
         call = findViewById(R.id.phonecall);

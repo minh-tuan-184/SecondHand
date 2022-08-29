@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.secondhand.MainActivity;
 import com.example.secondhand.R;
 import com.example.secondhand.otherActivities.DetailActivity;
 import com.example.secondhand.product.Product;
@@ -55,7 +56,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
                    productList.get(position).getStar());
            i.putExtra("product", newProd);
            i.putExtra("position", position);
-           context.startActivity(i);
+           if (database.getCurrentUser() != null)
+            context.startActivity(i);
+           else Toast.makeText(context, "You should log in to do this action", Toast.LENGTH_SHORT).show();
        });
     }
 

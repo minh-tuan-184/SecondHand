@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,17 +27,77 @@ public class Product implements Parcelable {
     Integer remainProduct;
     String phoneNumber;
     //List<Integer> star = new ArrayList<>();
-    Map<String, Object> star = new HashMap<>();
+    HashMap<String, Object> star = new HashMap<>();
     public Product () {
 
     }
+
+    protected Product(Parcel in) {
+        nameProduct = in.readString();
+        priceProduct = in.readString();
+        ratingProduct = in.readString();
+        detailProduct = in.readString();
+        categoryProduct = in.readString();
+        if (in.readByte() == 0) {
+            imageUrl = null;
+        } else {
+            imageUrl = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            remainProduct = null;
+        } else {
+            remainProduct = in.readInt();
+        }
+        phoneNumber = in.readString();
+        star = (HashMap<String, Object>) in.readSerializable();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nameProduct);
+        dest.writeString(priceProduct);
+        dest.writeString(ratingProduct);
+        dest.writeString(detailProduct);
+        dest.writeString(categoryProduct);
+        if (imageUrl == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(imageUrl);
+        }
+        if (remainProduct == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(remainProduct);
+        }
+        dest.writeString(phoneNumber);
+        dest.writeSerializable(star);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 
     public void addStarList(String n, Object s) {
         //this.star.add(s);
         this.star.put(n,s);
     }
 
-    public Product(String nameProduct, String priceProduct, String detailProduct, String categoryProduct, Integer imageUrl, Integer remainProduct, String phoneNumber, Map<String, Object> star) {
+    public Product(String nameProduct, String priceProduct, String detailProduct, String categoryProduct, Integer imageUrl, Integer remainProduct, String phoneNumber, HashMap<String, Object> star) {
         this.nameProduct = nameProduct;
         this.priceProduct = priceProduct;
         this.detailProduct = detailProduct;
@@ -73,36 +134,6 @@ public class Product implements Parcelable {
         star.put("noname", 0);
     }
 
-    protected Product(Parcel in) {
-        nameProduct = in.readString();
-        priceProduct = in.readString();
-        ratingProduct = in.readString();
-        detailProduct = in.readString();
-        categoryProduct = in.readString();
-        if (in.readByte() == 0) {
-            imageUrl = null;
-        } else {
-            imageUrl = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            remainProduct = null;
-        } else {
-            remainProduct = in.readInt();
-        }
-        phoneNumber = in.readString();
-    }
-
-    public static final Creator<Product> CREATOR = new Creator<Product>() {
-        @Override
-        public Product createFromParcel(Parcel in) {
-            return new Product(in);
-        }
-
-        @Override
-        public Product[] newArray(int size) {
-            return new Product[size];
-        }
-    };
 
     public String getNameProduct() {
         return nameProduct;
@@ -168,38 +199,13 @@ public class Product implements Parcelable {
         this.phoneNumber = phoneNumber;
     }
 
-    public Map<String, Object> getStar() {
+    public HashMap<String, Object> getStar() {
         return star;
     }
 
-    public void setStar(Map<String, Object> star) {
+    public void setStar(HashMap<String, Object> star) {
         this.star = star;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(nameProduct);
-        dest.writeString(priceProduct);
-        dest.writeString(ratingProduct);
-        dest.writeString(detailProduct);
-        dest.writeString(categoryProduct);
-        if (imageUrl == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(imageUrl);
-        }
-        if (remainProduct == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(remainProduct);
-        }
-        dest.writeString(phoneNumber);
-    }
 }

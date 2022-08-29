@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.secondhand.MainActivity;
 import com.example.secondhand.R;
 import com.example.secondhand.otherActivities.CategoryActivity;
 import com.example.secondhand.otherActivities.DetailActivity;
@@ -57,6 +58,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                     --i;
                 }
             }
+
             Intent i = new Intent(context, CategoryActivity.class);
             i.putParcelableArrayListExtra("category", productList);
             i.putExtra("nameCategory", tmp);

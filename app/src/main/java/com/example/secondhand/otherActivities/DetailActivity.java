@@ -36,6 +36,7 @@ public class DetailActivity extends AppCompatActivity {
     DatabaseReference ref = null;
     ArrayList<User> userArrayList = new ArrayList<>();
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         Product prod = (Product) getIntent().getParcelableExtra("product");
         Integer pos = getIntent().getIntExtra("position", 0);
         User user = new User(firebaseAuth.getCurrentUser().getEmail());
+
 
         if (prod != null) {
             textView = (TextView) findViewById(R.id.nameProduct_detail);
@@ -79,6 +81,7 @@ public class DetailActivity extends AppCompatActivity {
             love.setImageResource(R.drawable.redheart);
 
         }
+
 
         call = findViewById(R.id.phonecall);
         call.setOnClickListener(new View.OnClickListener() {

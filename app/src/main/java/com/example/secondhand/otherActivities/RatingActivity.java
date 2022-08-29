@@ -3,6 +3,7 @@ package com.example.secondhand.otherActivities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -19,13 +20,16 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RatingActivity extends AppCompatActivity {
     ImageView s1,s2,s3,s4,s5;
     String name = null;
+    Product product;
+    Integer integer, check = 0;
+    Button cancel, submit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rating_activity);
-        ActionBar actionBar = getSupportActionBar();
+        //ActionBar actionBar = getSupportActionBar();
         FirebaseAuth database = FirebaseAuth.getInstance();
-        actionBar.setTitle("Back");
+        //actionBar.setTitle("Back");
 
         if(database.getCurrentUser() != null && database.getCurrentUser().getEmail().length() > 11) {
             name = database.getCurrentUser().getEmail().substring(0, database.getCurrentUser().getEmail().length() - 10);
@@ -41,15 +45,28 @@ public class RatingActivity extends AppCompatActivity {
         s3 = findViewById(R.id.star3);
         s4 = findViewById(R.id.star4);
         s5 = findViewById(R.id.star5);
+        cancel = findViewById(R.id.btn_cancel);
+        submit = findViewById(R.id.btn_submit);
 
-        Product product = (Product) getIntent().getParcelableExtra("addStar");
-        Integer integer = getIntent().getIntExtra("pos", 0);
+        product = (Product) getIntent().getParcelableExtra("addStar");
+        integer = getIntent().getIntExtra("pos", 0);
+
+
+        s1.setImageResource(R.drawable.star_off);
+        s2.setImageResource(R.drawable.star_off);
+        s3.setImageResource(R.drawable.star_off);
+        s4.setImageResource(R.drawable.star_off);
+        s5.setImageResource(R.drawable.star_off);
+
         s1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 s1.setImageResource(R.drawable.ic_baseline_star_rate_24);
-                product.addStarList(name, 1);
-                updateList(integer, product);
+                s2.setImageResource(R.drawable.star_off);
+                s3.setImageResource(R.drawable.star_off);
+                s4.setImageResource(R.drawable.star_off);
+                s5.setImageResource(R.drawable.star_off);
+                check = 1;
             }
         });
 
@@ -58,8 +75,10 @@ public class RatingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 s1.setImageResource(R.drawable.ic_baseline_star_rate_24);
                 s2.setImageResource(R.drawable.ic_baseline_star_rate_24);
-                product.addStarList(name, 2);
-                updateList(integer, product);
+                s3.setImageResource(R.drawable.star_off);
+                s4.setImageResource(R.drawable.star_off);
+                s5.setImageResource(R.drawable.star_off);
+                check = 2;
             }
         });
 
@@ -69,8 +88,9 @@ public class RatingActivity extends AppCompatActivity {
                 s1.setImageResource(R.drawable.ic_baseline_star_rate_24);
                 s2.setImageResource(R.drawable.ic_baseline_star_rate_24);
                 s3.setImageResource(R.drawable.ic_baseline_star_rate_24);
-                product.addStarList(name, 3);
-                updateList(integer, product);
+                s4.setImageResource(R.drawable.star_off);
+                s5.setImageResource(R.drawable.star_off);
+                check = 3;
             }
         });
 
@@ -81,8 +101,8 @@ public class RatingActivity extends AppCompatActivity {
                 s2.setImageResource(R.drawable.ic_baseline_star_rate_24);
                 s3.setImageResource(R.drawable.ic_baseline_star_rate_24);
                 s4.setImageResource(R.drawable.ic_baseline_star_rate_24);
-                product.addStarList(name, 4);
-                updateList(integer, product);
+                s5.setImageResource(R.drawable.star_off);
+                check = 4;
             }
         });
 
@@ -94,8 +114,26 @@ public class RatingActivity extends AppCompatActivity {
                 s3.setImageResource(R.drawable.ic_baseline_star_rate_24);
                 s4.setImageResource(R.drawable.ic_baseline_star_rate_24);
                 s5.setImageResource(R.drawable.ic_baseline_star_rate_24);
-                product.addStarList(name, 5);
+                check = 5;
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RatingActivity.this, MainActivity.class);
+                Toast.makeText(RatingActivity.this, "Cancel Rating", Toast.LENGTH_SHORT).show();
+                startActivity(i);
+            }
+        });
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                product.addStarList(name, check);
                 updateList(integer, product);
+                Intent i = new Intent(RatingActivity.this, MainActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -103,6 +141,6 @@ public class RatingActivity extends AppCompatActivity {
     private void updateList(Integer pos, Product product) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("productList");
         ref.child(String.valueOf(pos)).child("star").updateChildren(product.getStar());
-        Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Rating Successfully", Toast.LENGTH_SHORT).show();
     }
 }

@@ -21,67 +21,41 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class User implements Parcelable {
     String email, name = null;
-    List<String> loveList;
+    Map<String, Object> loveList;
 
-    public User() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    public User () {
+
     }
+
 
     public User(String email) {
         this.email = email;
-        loveList = new ArrayList<>();
-        loveList.add("null");
-        /*for(int i=0 ;i< this.email.length(); ++i) {
-            if (this.email.charAt(i) == '@') break;
-            name = name + this.email.charAt(i);
-        }*/
-        name = this.email.substring(0, this.email.length() - 10);
-    }
-
-    public void setData_User() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference(this.email);
-        ref.setValue(loveList);
-    }
-
-    public String getName() {return name;}
-
-    public void setName(String name) {this.name = name;}
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public List<String> getLoveList() {
-        return loveList;
-    }
-
-    public void setLoveList(List<String> loveList) {
-        this.loveList = loveList;
+        this.name = email.substring(0, this.email.length() - 10);
+        loveList = new HashMap<>();
+        loveList.put("null", 0);
     }
 
     protected User(Parcel in) {
         email = in.readString();
-        loveList = in.createStringArrayList();
+        name = in.readString();
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(email);
-        dest.writeStringList(loveList);
+    public void addLove(String nameP) {
+        loveList.put(nameP, 0);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public boolean elementLoveList(String i) {
+        for (Map.Entry<String, Object> entry : loveList.entrySet()) {
+            if (entry.getKey().equals(i))
+                return true;
+        }
+        return false;
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -95,4 +69,39 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Map<String, Object> getLoveList() {
+        return loveList;
+    }
+
+    public void setLoveList(Map<String, Object> loveList) {
+        this.loveList = loveList;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(email);
+        dest.writeString(name);
+    }
 }

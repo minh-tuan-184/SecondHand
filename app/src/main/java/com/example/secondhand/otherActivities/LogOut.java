@@ -13,15 +13,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.secondhand.MainActivity;
 import com.example.secondhand.R;
+import com.example.secondhand.product.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+
 public class LogOut extends AppCompatActivity {
-    Button btnOut;
-    Button btnUpdate;
-    Button btnAboutUs;
+    Button btnOut, btnUpdate, btnAboutUs, btn;
+    ArrayList<Product> productArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class LogOut extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (database.getCurrentUser() != null) {
-                    Toast.makeText(LogOut.this, "Let's update!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(LogOut.this, "Let's update!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LogOut.this, UpdateUser.class);
                     startActivity(intent);
                 }
@@ -62,10 +64,23 @@ public class LogOut extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (database.getCurrentUser() != null) {
-                    Toast.makeText(LogOut.this, "About Us!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(LogOut.this, "About Us!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LogOut.this, About_Us.class);
                     startActivity(intent);
                 }
+            }
+        });
+
+        btn = findViewById(R.id.love_list_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (database.getCurrentUser() != null) {
+                    productArrayList = getIntent().getExtras().getParcelableArrayList("pListtoLogout");
+                    Intent intent = new Intent(v.getContext(), LoveList.class);
+                    intent.putParcelableArrayListExtra("pListtoLoveList", productArrayList);
+                    startActivity(intent);
+                } else Toast.makeText(LogOut.this, "You should log in to do this action", Toast.LENGTH_SHORT).show();
             }
         });
     }

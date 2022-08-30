@@ -36,7 +36,7 @@ public class LoveList extends AppCompatActivity {
         setContentView(R.layout.love_list);
 
         String subemail = firebaseAuth.getCurrentUser().getEmail().substring(0, firebaseAuth.getCurrentUser().getEmail().length() - 10);
-        ArrayList<Product> productList = getIntent().getExtras().getParcelableArrayList("pList");
+        ArrayList<Product> productList = getIntent().getExtras().getParcelableArrayList("pListtoLoveList");
         getLoveListUser(subemail, productList);
     }
 

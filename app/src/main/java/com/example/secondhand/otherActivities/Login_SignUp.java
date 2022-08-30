@@ -35,7 +35,7 @@ public class Login_SignUp extends AppCompatActivity {
     TextView register;
     TextView textLog_Sign, email, password;
     Button btnLog;
-
+    ArrayList<Product> productArrayList = new ArrayList<>();
     List<User> userList = new ArrayList<>();
     DatabaseReference ref = null;
     @Override
@@ -102,7 +102,9 @@ public class Login_SignUp extends AppCompatActivity {
             });
         }
         else {
+            productArrayList = getIntent().getExtras().getParcelableArrayList("pListtoLogin");
             Intent intent = new Intent(this, LogOut.class);
+            intent.putParcelableArrayListExtra("pListtoLogout", productArrayList);
             startActivity(intent);
         }
 

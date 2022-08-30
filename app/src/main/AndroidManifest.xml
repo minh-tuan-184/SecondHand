@@ -63,6 +63,18 @@
             android:parentActivityName=".MainActivity"
             android:exported="true">
         </activity>
+
+        <activity
+            android:name=".otherActivities.UpdateUser"
+            android:parentActivityName=".otherActivities.LogOut"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".otherActivities.About_Us"
+            android:parentActivityName=".otherActivities.LogOut"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

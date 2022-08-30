@@ -40,7 +40,7 @@ public class LoveList extends AppCompatActivity {
         getLoveListUser(subemail, productList);
     }
 
-    private void getLoveListUser(String subemail, List<Product> productList) {
+    private void getLoveListUser(String subemail, ArrayList<Product> productList) {
         ref = firebaseDatabase.getReference("User");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -61,7 +61,7 @@ public class LoveList extends AppCompatActivity {
         });
     }
 
-    private void setProductRecycler(List<Product> productList) {
+    private void setProductRecycler(ArrayList<Product> productList) {
         productRecycler = findViewById(R.id.recycler_loveList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         productRecycler.setLayoutManager(layoutManager);
@@ -69,7 +69,6 @@ public class LoveList extends AppCompatActivity {
             pAdapter = new ProductAdapter(this, productList);
             productRecycler.setAdapter(pAdapter);
         }
-
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         productRecycler.addItemDecoration(dividerItemDecoration);
     }
@@ -83,7 +82,7 @@ public class LoveList extends AppCompatActivity {
         }
     }
 
-    private void removeAllproduct(List<Product> productList) {
+    private void removeAllproduct(ArrayList<Product> productList) {
         for (int i = 0; i < productList.size(); ++i) {
             if (!userArrayList.get(0).elementLoveList(productList.get(i).getNameProduct())) {
                 productList.remove(i);

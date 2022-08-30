@@ -36,7 +36,7 @@ public class UpdateUser extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 reAuthenticate();
-                onClickUpdatePassword();
+                //onClickUpdatePassword();
             }
         });
     }
@@ -52,7 +52,8 @@ public class UpdateUser extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()) {
-                            Toast.makeText(UpdateUser.this, "Re-authenticate successful", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(UpdateUser.this, "Re-authenticate successful", Toast.LENGTH_SHORT).show();
+                            onClickUpdatePassword();
                         } else{
                             Toast.makeText(UpdateUser.this, "Failed to re-authenticate", Toast.LENGTH_SHORT).show();
                         }

@@ -54,7 +54,7 @@
 
         <activity
             android:name=".otherActivities.LoveList"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".otherActivities.LogOut"
             android:exported="true">
         </activity>
 

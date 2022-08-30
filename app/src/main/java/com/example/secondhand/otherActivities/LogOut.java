@@ -2,6 +2,7 @@ package com.example.secondhand.otherActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -77,7 +78,7 @@ public class LogOut extends AppCompatActivity {
             public void onClick(View v) {
                 if (database.getCurrentUser() != null) {
                     productArrayList = getIntent().getExtras().getParcelableArrayList("pListtoLogout");
-                    Intent intent = new Intent(v.getContext(), LoveList.class);
+                    Intent intent = new Intent(LogOut.this, LoveList.class);
                     intent.putParcelableArrayListExtra("pListtoLoveList", productArrayList);
                     startActivity(intent);
                 } else Toast.makeText(LogOut.this, "You should log in to do this action", Toast.LENGTH_SHORT).show();
